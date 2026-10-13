@@ -126,7 +126,7 @@ def _ampm(s):
 
 def party(text, restaurant=True):
     t = text.lower()
-    m = re.search(r"\b(?:table for|party of|for|seat|reservation for)\s+" + NUM_RE + r"\b(?!\s*(?::|am|pm|o'clock|thirty|fifteen))(?:\s+(?:people|guests|of us|adults))?", t)
+    m = re.search(r"\b(?:table for|party of|for|seat|seats|seating for|reservation for)\s+" + NUM_RE + r"\b(?!\s*(?::|am|pm|o'clock|thirty|fifteen))(?:\s+(?:people|guests|of us|adults))?", t)
     if m and (restaurant or re.search(r"table|party|people|guests|seat|of us|reservation", t)):
         return _n(m.group(1))
     m = re.search(NUM_RE + r"\s+(?:people|guests|of us|adults)\b", t)

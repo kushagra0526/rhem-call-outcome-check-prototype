@@ -1,7 +1,8 @@
 """Score callcheck against synthetic calls with known outcomes.
 
     python evaluate.py dev        # dev phrase bank (used while building)
-    python evaluate.py heldout    # eval/phrases_heldout.py, committed before the first held-out run
+    python evaluate.py heldout    # eval/phrases_heldout.py (v1: first run kept in out/eval_heldout_v1.*)
+    python evaluate.py heldout2   # eval/phrases_heldout2.py, committed before callcheck ran on it
 
 Compared with two baselines:
   report   - trust the agent's own report ("complete" -> show it as done)
@@ -28,6 +29,9 @@ def load(which):
         from callcheck.phrases_dev import BANK
         return make_set(BANK, n_per=4, seed0=0)
     sys.path.insert(0, str(HERE / "eval"))
+    if which == "heldout2":
+        from phrases_heldout2 import BANK
+        return make_set(BANK, n_per=4, seed0=90_000)
     from phrases_heldout import BANK
     return make_set(BANK, n_per=4, seed0=50_000)
 

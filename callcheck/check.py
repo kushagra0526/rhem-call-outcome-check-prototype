@@ -21,7 +21,7 @@ R = lambda p: re.compile(p, re.I)
 CONFIRM = R(r"\b(you'?re (all )?set|you are (all )?set|(it'?s|you'?re|that'?s|she'?s|he'?s|they'?re|order'?s|order is|reservation is|appointment is) (all )?(booked|confirmed|scheduled|placed|in)\b|"
             r"i'?ve (booked|scheduled|got) |have (you|her|him|them) down|got (you|her|him|them) down|put (you|her|him|them) down|"
             r"see (you|her|him|them) (then|on|at)|confirmation (number|code)|will be ready|ready for pick ?up|"
-            r"(is|be) on (its|the) way|(we'?ll|we will) (deliver|have it)|booked (you|her|him|them)|all booked|locked in|"
+            r"(is|be) on (its|the) way|(can|to|will) pick (it|them) up|(it'?s|that'?s|has) been (filled|processed|sent|submitted)|(we'?ll|we will) (deliver|have it)|booked (you|her|him|them)|all booked|locked in|"
             r"pencil(?:led)? (you|her|him|them) in|it'?s (been )?(filled|processed|sent over|submitted)|we'?ve got (it|that) (in|ready))")
 PENDING = {
     "callback": R(r"\b(call (you|her|him|them) back|get back to (you|her|him|them)|(someone|we|i|the manager|the pharmacist) (will|'ll|can) (call|reach out|text|follow up)|"
@@ -58,7 +58,7 @@ def _mode(kind):
     return "evening" if kind == "restaurant" else "day"
 
 
-def tag(turn, kind, today):
+def tag(turn, kind, today, want=None):
     text, who = turn["text"], turn["who"]
     acts = set()
     if who == "system":
@@ -69,6 +69,12 @@ def tag(turn, kind, today):
         return acts, {}
     fields = {}
     ds, ts = dates(text, today), times(text, _mode(kind))
+    # "an opening at 6:30, nothing at 5:30": in a line that names several, the one being offered is
+    # not the one that was asked for
+    if len(ts) > 1 and want and want.get("time") in ts:
+        ts = [x for x in ts if x != want["time"]] or ts
+    if len(ds) > 1 and want and want.get("date") in ds:
+        ds = [x for x in ds if x != want["date"]] or ds
     if ds:
         fields["date"] = ds[-1]
     if ts:
@@ -93,7 +99,8 @@ def tag(turn, kind, today):
             acts.add("OFFER")
             acts.discard("NOT_DONE:refused")  # "can't do 6:30, how about 7:30?" is an offer, not a no
         if amounts:
-            if FEE.search(text):
+            inside_total = TOTAL.search(text) and re.search(r"\b(including|includes|with|plus tax and)\b[^.]{0,30}" + FEE.pattern[2:], text, re.I)
+            if FEE.search(text) and not inside_total:
                 acts.add("FEE")
                 fields["fee"] = max(amounts)
             if TOTAL.search(text) or not FEE.search(text):
@@ -126,7 +133,7 @@ def check(call):
     last_fee = last_price = None
     flags, evidence, lines = [], {}, []
     for i, turn in enumerate(call["transcript"]):
-        acts, f = tag(turn, kind, today)
+        acts, f = tag(turn, kind, today, want)
         lines.append({"i": i + 1, "who": turn["who"], "text": turn["text"], "acts": sorted(acts)})
         if turn["who"] == "biz":
             if "OFFER" in acts or "CONFIRM" in acts:
