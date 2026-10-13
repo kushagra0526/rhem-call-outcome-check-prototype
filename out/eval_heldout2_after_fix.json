@@ -1,0 +1,25 @@
+{
+  "metrics": {
+    "calls": 88,
+    "truly_not_done": 44,
+    "false_complete_report": 36,
+    "false_complete_keyword": 6,
+    "false_complete_check": 0,
+    "missed_done_check": 0,
+    "status_exact": 88,
+    "flags_planted": 16,
+    "flags_caught": 16,
+    "flags_false": 0,
+    "wrong_claims_planted": 48,
+    "wrong_claims_caught": 48,
+    "claims_falsely_flagged": 0
+  },
+  "confusion": {
+    "DONE->DONE": 32,
+    "DONE_CHANGED->DONE_CHANGED": 12,
+    "PENDING->PENDING": 16,
+    "NOT_DONE->NOT_DONE": 20,
+    "NEEDS_PARENT->NEEDS_PARENT": 8
+  },
+  "misses": []
+}

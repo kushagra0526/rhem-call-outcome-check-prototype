@@ -18,7 +18,7 @@ from datetime import date
 from .parse import dates, fmt_time, identifiers, money, party, times
 
 R = lambda p: re.compile(p, re.I)
-CONFIRM = R(r"\b(you'?re (all )?set|you are (all )?set|(it'?s|you'?re|that'?s|she'?s|he'?s|they'?re|order'?s|order is|reservation is|appointment is) (all )?(booked|confirmed|scheduled|placed|in)\b|"
+CONFIRM = R(r"\b((you|she|he|they)'?(re|s) (all )?set|(you|she|he|they) (are|is) (all )?set|(it'?s|you'?re|that'?s|she'?s|he'?s|they'?re|order'?s|order is|reservation is|appointment is) (all )?(booked|confirmed|scheduled|placed|in)\b|"
             r"i'?ve (booked|scheduled|got) |have (you|her|him|them) down|got (you|her|him|them) down|put (you|her|him|them) down|"
             r"see (you|her|him|them) (then|on|at)|confirmation (number|code)|will be ready|ready for pick ?up|"
             r"(is|be) on (its|the) way|(can|to|will) pick (it|them) up|(it'?s|that'?s|has) been (filled|processed|sent|submitted)|(we'?ll|we will) (deliver|have it)|booked (you|her|him|them)|all booked|locked in|"
