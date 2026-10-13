@@ -1,0 +1,35 @@
+
+== heldout2: 88 synthetic calls, 44 not actually done
+   told 'done' when it wasn't:  agent report 36  ·  keyword 6  ·  callcheck 0
+   real bookings callcheck missed: 2
+   exact status: 85/88
+   policy flags caught 15/16, false 0
+   wrong report claims caught 48/48
+
+   truth \ got        DONE  DONE_CHAN    PENDING   NOT_DONE  NEEDS_PAR
+   DONE                 32          0          0          0          0
+   DONE_CHANGED          0         10          0          2          0
+   PENDING               0          0         16          0          0
+   NOT_DONE              0          0          0         20          0
+   NEEDS_PARENT          0          0          0          1          7
+
+   MISS rest-alt_time_accepted-90102: truth DONE_CHANGED [] got NOT_DONE (no outcome) []
+      1 biz: Golden Lotus, good afternoon.  []
+      2 agent: Hi, do you have room for three people Wednesday the 14th at half past seven? Name is Mei.  []
+      3 biz: Hmm, half past seven is taken. Would 8:15 work instead?  ['OFFER']
+      4 agent: That'll work, thanks.  ['ACCEPT']
+      5 biz: Okay, she's all set then.  []
+
+   MISS rest-deposit_agreed-90702: truth NEEDS_PARENT ['UNAPPROVED_FEE'] got NOT_DONE (no outcome) []
+      1 biz: Casa Verde, good afternoon.  []
+      2 agent: Hello! I'm booking for Gloria, we'd love a table for 4 Saturday at seven pm.  []
+      3 biz: Large tables carry a $20 deposit, is that alright?  ['FEE']
+      4 agent: Yes, that's fine.  ['ACCEPT']
+      5 biz: Okay, she's all set then.  []
+
+   MISS appo-alt_day_accepted-91103: truth DONE_CHANGED [] got NOT_DONE (no outcome) []
+      1 biz: Hi there, Dr. Patel's office, how can I help?  []
+      2 agent: Hi, I'm helping Donna make an appointment, ideally this Friday at nine.  []
+      3 biz: Dr. Nguyen has nothing open, the next available is October 18th at nine.  ['OFFER']
+      4 agent: That'll work, thanks.  ['ACCEPT']
+      5 biz: Okay, she's all set then.  []

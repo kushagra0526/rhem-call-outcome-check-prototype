@@ -1,0 +1,75 @@
+{
+  "metrics": {
+    "calls": 88,
+    "truly_not_done": 44,
+    "false_complete_report": 36,
+    "false_complete_keyword": 6,
+    "false_complete_check": 0,
+    "missed_done_check": 2,
+    "status_exact": 85,
+    "flags_planted": 16,
+    "flags_caught": 15,
+    "flags_false": 0,
+    "wrong_claims_planted": 48,
+    "wrong_claims_caught": 48,
+    "claims_falsely_flagged": 9
+  },
+  "confusion": {
+    "DONE->DONE": 32,
+    "DONE_CHANGED->DONE_CHANGED": 10,
+    "DONE_CHANGED->NOT_DONE": 2,
+    "PENDING->PENDING": 16,
+    "NOT_DONE->NOT_DONE": 20,
+    "NEEDS_PARENT->NEEDS_PARENT": 7,
+    "NEEDS_PARENT->NOT_DONE": 1
+  },
+  "misses": [
+    {
+      "id": "rest-alt_time_accepted-90102",
+      "truth": "DONE_CHANGED",
+      "got": "NOT_DONE",
+      "reason": "no outcome",
+      "flags_truth": [],
+      "flags_got": [],
+      "lines": [
+        "1 biz: Golden Lotus, good afternoon.  []",
+        "2 agent: Hi, do you have room for three people Wednesday the 14th at half past seven? Name is Mei.  []",
+        "3 biz: Hmm, half past seven is taken. Would 8:15 work instead?  ['OFFER']",
+        "4 agent: That'll work, thanks.  ['ACCEPT']",
+        "5 biz: Okay, she's all set then.  []"
+      ]
+    },
+    {
+      "id": "rest-deposit_agreed-90702",
+      "truth": "NEEDS_PARENT",
+      "got": "NOT_DONE",
+      "reason": "no outcome",
+      "flags_truth": [
+        "UNAPPROVED_FEE"
+      ],
+      "flags_got": [],
+      "lines": [
+        "1 biz: Casa Verde, good afternoon.  []",
+        "2 agent: Hello! I'm booking for Gloria, we'd love a table for 4 Saturday at seven pm.  []",
+        "3 biz: Large tables carry a $20 deposit, is that alright?  ['FEE']",
+        "4 agent: Yes, that's fine.  ['ACCEPT']",
+        "5 biz: Okay, she's all set then.  []"
+      ]
+    },
+    {
+      "id": "appo-alt_day_accepted-91103",
+      "truth": "DONE_CHANGED",
+      "got": "NOT_DONE",
+      "reason": "no outcome",
+      "flags_truth": [],
+      "flags_got": [],
+      "lines": [
+        "1 biz: Hi there, Dr. Patel's office, how can I help?  []",
+        "2 agent: Hi, I'm helping Donna make an appointment, ideally this Friday at nine.  []",
+        "3 biz: Dr. Nguyen has nothing open, the next available is October 18th at nine.  ['OFFER']",
+        "4 agent: That'll work, thanks.  ['ACCEPT']",
+        "5 biz: Okay, she's all set then.  []"
+      ]
+    }
+  ]
+}
